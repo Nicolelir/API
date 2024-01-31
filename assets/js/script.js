@@ -13,11 +13,29 @@ document.getElementById("status").addEventListener("click", e => getStatus(e)); 
 //10. Making a POST Request
 document.getElementById("submit").addEventListener("click", e => postForm(e));
 
+//13 and 14
+function processOptions(form) {
+    let optArray = [];
+
+    for (let e of form.entries()) {
+        if (e[0] === "options") {
+            optArray.push(e[1]);
+        }
+    }
+
+    form.delete("options");
+
+    form.append("options", optArray.join());
+
+    return form;
+}
+
+
 //11. It needs  to be an async function. So that we can await the results of our promise.  It's called postForm as we said above. 
 // FormData interface: it can capture all of the fields in a HTML form and return it as an object and we can give this objects to fetch
 async function postForm(e) {
 
-    const form = new FormData(document.getElementById("checksform"));
+    const form = processOptions(new FormData(document.getElementById("checksform")));//changed with 13, after adding processOptions function//
 
     const response = await fetch(API_URL, { //waiting for promise
         method: "POST",
@@ -119,3 +137,8 @@ And finally, the results modal is shown*/
 //We are adding eventlistener at the very first part.....(10)
 
 //After creating the function async function getStatus(e) we need to convert the  response to json and display it. (12)
+//api instructions say that options should be a comma separated list of options and  outlined below so a comma separated list of options..let's add that(13)
+//14..After creating processOption functions we need:
+//a: iterate through the options
+//b: push them into a temporary array
+//c:convert that into a string
