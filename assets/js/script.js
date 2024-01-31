@@ -28,8 +28,22 @@ For now, let’s add an if to check if our response.ok property is set to True.
 And if it is, we'll console.log out our response.*/
 
     if (response.ok) {
-        console.log(data.expiry);
+        console.log(data);
+    } else {
+        throw new Error(data.error);
     }
+
+}
+
+function displayStatus(data) {
+
+    let heading = "API Key Status";
+    let results = `<div>Your key is valid until</div>`;
+    results += `<div class="key-status">${data.expiry}</div>`;
+
+    document.getElementById("resultsModalTitle").innerText = heading;
+    document.getElementById("results-content").innerHTML = results;
+    resultsModal.show();
 
 }
 
