@@ -28,22 +28,27 @@ For now, let’s add an if to check if our response.ok property is set to True.
 And if it is, we'll console.log out our response.*/
 
     if (response.ok) {
-        console.log(data);
+        console.log(data); //to display the data in our modal
     } else {
         throw new Error(data.error);
     }
 
 }
-
+//Instead of console logging our data we'll call  the display status function with it instead.
 function displayStatus(data) {
 
-    let heading = "API Key Status";
-    let results = `<div>Your key is valid until</div>`;
+    let heading = "API Key Status"; //our display  status function needs to set the heading text to API key status
+    let results = `<div>Your key is valid until</div>`; //it needs to set the body  text to, "your key is valid until" and the date, and it needs to show the modal
     results += `<div class="key-status">${data.expiry}</div>`;
 
+    //resultsModalTitle”, and the  ID for the body is “results-content”. 
     document.getElementById("resultsModalTitle").innerText = heading;
     document.getElementById("results-content").innerHTML = results;
     resultsModal.show();
 
+    /*I set the  heading text to API key status  
+I set the results variable to the content that  I want in the body using template literals.  
+Then using document.getElementById and the  IDs I gave you earlier I set the content.  
+And finally, the results modal is shown*/
 }
 
