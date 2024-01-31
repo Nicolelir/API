@@ -52,6 +52,7 @@ const data = await response.json();
     if (response.ok) {
         displayErrors(data);
     } else {
+        displayException(data);//15
         throw new Error(data.error);
     }
 
@@ -79,9 +80,24 @@ And if it is, we'll console.log out our response.*/
     if (response.ok) {
         displayStatus(data); // 5 to display the data in our modal
     } else {
+        displayException(data);//15
         throw new Error(data.error);
     }
 
+}
+
+// 15. create  an empty function called displayException. 
+function displayException(data) {
+
+    let heading = `<div class="error-heading">An Exception Occurred</div>`;
+    
+    results = `<div>The API returned status code ${data.status_code}</div>`;
+    results += `<div>Error number: <strong>${data.error_no}</strong></div>`;
+    results += `<div>Error text: <strong>${data.error}</strong></div>`;
+
+    document.getElementById("resultsModalTitle").innerText = heading;
+    document.getElementById("results-content").innerHTML = results;
+    resultsModal.show();
 }
 
 //13. to format the response (take in data as a parameter again)
@@ -131,6 +147,10 @@ I set the results variable to the content that  I want in the body using templat
 Then using document.getElementById and the  IDs I gave you earlier I set the content.  
 And finally, the results modal is shown*/
 
+
+
+
+
 //----------------------------------//
 //We want to be able to send data and  get the API to check JavaScript code for us.
 //Firstly, a function to make the request. And secondly, a function to display the data.
@@ -142,3 +162,7 @@ And finally, the results modal is shown*/
 //a: iterate through the options
 //b: push them into a temporary array
 //c:convert that into a string
+
+//15. Our user has no way of knowing what went wrong  unless they're also checking the console. let's change that.... 
+//a: we still do want the  errors to display in the console. We’ll need to call  our function to display the exception before the “throw” keyword because all  JavaScript execution stops after a throw.
+//b: Secondly, we’ll need to create a function,  which we’ll call displayException. 
